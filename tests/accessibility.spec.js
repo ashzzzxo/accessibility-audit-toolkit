@@ -7,9 +7,16 @@ const TARGET_URL =
   process.env.TARGET_URL || 'http://127.0.0.1:8080/sample-broken.html';
 
 function getReportName(url) {
+  if (url.includes('sample-broken')) return 'broken-page-report.md';
+  if (url.includes('sample-fixed')) return 'fixed-page-report.md';
+  if (url.includes('sample-form-broken')) return 'form-broken-report.md';
+  if (url.includes('sample-form-fixed')) return 'form-fixed-report.md';
+
   try {
     const parsed = new URL(url);
-    const host = parsed.hostname.replace(/^www\./, '').replace(/[^a-zA-Z0-9]/g, '-');
+    const host = parsed.hostname
+      .replace(/^www\./, '')
+      .replace(/[^a-zA-Z0-9]/g, '-');
     return `${host}-report.md`;
   } catch {
     return 'latest-a11y-report.md';
@@ -23,6 +30,8 @@ test('page should not have serious or critical accessibility violations', async 
     waitUntil: 'domcontentloaded',
     timeout: 60000
   });
+
+  await expect(page.locator('body')).toBeVisible();
 
   const results = await new AxeBuilder({ page }).analyze();
 
@@ -42,6 +51,7 @@ test('page should not have serious or critical accessibility violations', async 
 
   if (seriousOrCritical.length) {
     md += `## Violations\n\n`;
+
     seriousOrCritical.forEach((violation, index) => {
       md += `### ${index + 1}. ${violation.id}\n`;
       md += `- Impact: ${violation.impact}\n`;
@@ -62,6 +72,17 @@ test('page should not have serious or critical accessibility violations', async 
 
   const reportPath = path.join(reportsDir, getReportName(TARGET_URL));
   fs.writeFileSync(reportPath, md, 'utf8');
+
+  if (seriousOrCritical.length) {
+    console.log('\nAccessibility violations found:\n');
+    for (const violation of seriousOrCritical) {
+      console.log(`Rule: ${violation.id}`);
+      console.log(`Impact: ${violation.impact}`);
+      console.log(`Help: ${violation.help}`);
+      console.log(`Description: ${violation.description}`);
+      console.log(`Affected nodes: ${violation.nodes.length}\n`);
+    }
+  }
 
   expect(seriousOrCritical).toEqual([]);
 });

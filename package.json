@@ -1,16 +1,18 @@
 {
   "name": "accessibility-audit-toolkit",
   "version": "1.0.0",
-  "description": "Lightweight accessibility QA toolkit using Lighthouse CI, Playwright, axe, and manual DevTools checks",
+  "description": "Lightweight accessibility QA toolkit using Playwright, axe-core, Lighthouse CI, and manual browser testing",
+  "main": "index.js",
   "scripts": {
-    "test:a11y": "playwright test",
+    "test:a11y": "playwright test tests/accessibility.spec.js",
+    "test:keyboard": "playwright test tests/keyboard.spec.js",
     "audit:lighthouse": "lhci autorun --config=./lighthouserc.js",
     "audit:all": "npm run test:a11y && npm run audit:lighthouse"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
     "@lhci/cli": "^0.15.1",
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "^1.52.0",
     "playwright": "^1.52.0"
   }
 }

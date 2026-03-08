@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fixed Form Example</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    label, input, button, small { display: block; margin: 0.5rem 0; }
+    input, button { padding: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Fixed Form Example</h1>
+  <p>This form fixes the labeling issues.</p>
+
+  <form>
+    <label for="name">Name</label>
+    <input id="name" type="text" aria-describedby="name-help" />
+    <small id="name-help">Enter your full name.</small>
+
+    <label for="email">Email</label>
+    <input id="email" type="email" aria-describedby="email-help" />
+    <small id="email-help">Enter a valid email address.</small>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

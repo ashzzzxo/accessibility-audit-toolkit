@@ -1,4 +1,3 @@
-// lighthouserc.js
 const targetUrl = process.env.TARGET_URL || 'https://example.com';
 
 module.exports = {
