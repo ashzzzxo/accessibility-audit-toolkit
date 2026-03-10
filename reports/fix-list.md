@@ -15,6 +15,15 @@
    - Impact: High
    - Problem: A clickable `div` is not keyboard accessible.
    - Fix: Replace with a semantic `<button>` or properly implemented keyboard-accessible control.
+4. **Invalid ARIA role value**
+   - Impact: High
+   - Problem: Invalid `role` values break accessibility semantics and may be ignored by assistive technologies.
+   - Fix: Replace invalid roles with valid ARIA roles and add accessible naming where needed.
+
+5. **Insufficient color contrast**
+   - Impact: High
+   - Problem: Low-contrast text is harder to read for many users and can fail WCAG minimum contrast requirements.
+   - Fix: Increase foreground/background contrast to meet at least 4.5:1 for normal text or 3:1 for large text.
 
 ## Medium Priority
 1. **Weak or missing help text for form inputs**
@@ -29,3 +38,5 @@
 1. **General semantic cleanup**
    - Problem: Improve maintainability and overall accessibility quality.
    - Fix: Prefer semantic HTML elements over generic containers for interactive behavior.
+
+   
